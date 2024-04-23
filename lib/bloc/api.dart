@@ -21,7 +21,23 @@ class Api {
 
     if (cashedResults != null) return cashedResults;
 
-    // final persons = await _getJson(url)
+    // calling api for persons
+    const personUrl =
+        "https://raw.githubusercontent.com/sb-dor/rxdart-app/master/apis/persons.json";
+
+    final persons = await _getJson(personUrl).then((json) => json.map((e) => Person.fromJson(e)));
+
+    _persons = persons.toList();
+
+    // calling api for animals
+    const animalUrl =
+        "https://raw.githubusercontent.com/sb-dor/rxdart-app/master/apis/api_animals.json";
+
+    final animals = await _getJson(animalUrl).then((json) => json.map((e) => Animal.fromJson(e)));
+
+    _animals = animals.toList();
+
+    return _extractThingUsingSearchTerm(term) ?? [];
   }
 
   // searchterm is just a string
