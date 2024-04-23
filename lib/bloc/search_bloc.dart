@@ -7,7 +7,7 @@ import 'package:rxdart_app/bloc/search_results.dart';
 class SearchBloc {
   final Sink<String> search;
 
-  final Stream<SearchResultsStates?> results;
+  final Stream<SearchResultsStates?> results; // represents states
 
   // Sinks (in out context is search variable) have to be closed in the end of using
   // (как раковина, после мытья рук или посуды мы закрываем ее)
@@ -15,13 +15,17 @@ class SearchBloc {
     search.close();
   }
 
-  const SearchBloc._({required this.search, required this.results});
+  const SearchBloc._({
+    required this.search,
+    required this.results,
+  }); // every time when i call this private constructor i change the values above
 
   factory SearchBloc({
     required Api api,
   }) {
-    final textChanges =
-        BehaviorSubject<String>(); // it has Stream under the hood that has sink
+    // it has Stream under the hood that has sink
+    // because simple Streams doesn't have sink itself
+    final textChanges = BehaviorSubject<String>();
 
     final Stream<SearchResultsStates?> results = textChanges
         .distinct()
@@ -30,6 +34,7 @@ class SearchBloc {
           if (searchTerm.isEmpty) {
             return Stream<SearchResultsStates?>.value(null);
           } else {
+            // Rx.fromCallable changes the Future type into Stream
             final search = Rx.fromCallable(() => api.search(searchTerm)).map(
               (results) => results.isEmpty
                   ? const SearchResultNoResultsState()
@@ -38,10 +43,10 @@ class SearchBloc {
             return search;
           }
         })
+        // every time when this all streams work the start value will be the places value
         .startWith(const SearchResultLoadingState())
-        .onErrorReturnWith(
-          (error, _) => SearchResultErrorState(error),
-        ); // we created one of that type of Streams that can be listened in future usages
+        // we created one of that type of Streams that can be listened in future usages
+        .onErrorReturnWith((error, _) => SearchResultErrorState(error));
 
     return SearchBloc._(search: textChanges.sink, results: results);
   }
