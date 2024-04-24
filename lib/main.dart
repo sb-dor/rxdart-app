@@ -71,6 +71,7 @@ void testMerge() async {
     (i) => "Stream 2, count = $i",
   );
 
+  // merge just merges several streams and whenever one of the streams gives value we can listen them
   final merged = Rx.merge([stream1, stream2]);
 
   await for (final each in merged) {
