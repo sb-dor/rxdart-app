@@ -7,12 +7,15 @@ extension Log on Object {
 }
 
 void main() {
-  testIt();
+  // testCombined();
+  testConcat();
 
   runApp(const App());
 }
 
-void testIt() async {
+// combine two or more streams with combinesLatest method of rxDart
+// it start to work when the latest stream start to have value
+void testCombined() async {
   final stream1 = Stream.periodic(const Duration(seconds: 1), (i) => "Stream 1, count = $i");
 
   final stream2 = Stream.periodic(const Duration(seconds: 3), (i) => "Stream 2, count = $i");
@@ -24,12 +27,44 @@ void testIt() async {
   }
 }
 
+// concat (merge) two or more streams until the first stream ends
+void testConcat() async {
+  // (take) takes only the number of values that you set there
+
+  final stream1 = Stream.periodic(
+    const Duration(seconds: 1),
+    (i) => "Stream 1, count = $i",
+  ).take(3);
+
+  final stream2 = Stream.periodic(
+    const Duration(seconds: 3),
+    (i) => "Stream 2, count = $i",
+  );
+
+  final concat = Rx.concat([stream1, stream2]);
+
+  await for (final each in concat) {
+    each.log();
+  }
+  // LOGS:
+
+  // [log] Stream 1, count = 0
+  // [log] Stream 1, count = 1
+  // [log] Stream 1, count = 2 // after taking 3 values stream 1 ends and second stream starts two work
+  // [log] Stream 2, count = 0
+  // [log] Stream 2, count = 1
+  // [log] Stream 2, count = 2
+  // [log] Stream 2, count = 3
+  // [log] Stream 2, count = 4
+  // [log] Stream 2, count = 5
+}
+
 class App extends StatelessWidget {
   const App({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: HomePage(),
       debugShowCheckedModeBanner: false,
     );
@@ -43,7 +78,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Home page"),
+        title: const Text("Home page"),
       ),
     );
   }
