@@ -8,7 +8,8 @@ extension Log on Object {
 
 void main() {
   // testCombined();
-  testConcat();
+  // testConcat();
+  testMerge();
 
   runApp(const App());
 }
@@ -57,6 +58,24 @@ void testConcat() async {
   // [log] Stream 2, count = 3
   // [log] Stream 2, count = 4
   // [log] Stream 2, count = 5
+}
+
+void testMerge() async {
+  final stream1 = Stream.periodic(
+    const Duration(seconds: 1),
+    (i) => "Stream 1, count = $i",
+  ).take(7);
+
+  final stream2 = Stream.periodic(
+    const Duration(seconds: 3),
+    (i) => "Stream 2, count = $i",
+  );
+
+  final merged = Rx.merge([stream1, stream2]);
+
+  await for (final each in merged) {
+    each.log();
+  }
 }
 
 class App extends StatelessWidget {
