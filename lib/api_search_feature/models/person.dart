@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:rxdart_app/models/thing.dart';
+import 'package:rxdart_app/api_search_feature/models/thing.dart';
 
 @immutable
 class Person extends Thing {

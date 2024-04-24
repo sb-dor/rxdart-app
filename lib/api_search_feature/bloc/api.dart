@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:rxdart_app/models/animal.dart';
-import 'package:rxdart_app/models/person.dart';
-import 'package:rxdart_app/models/thing.dart';
+import 'package:rxdart_app/api_search_feature/models/animal.dart';
+import 'package:rxdart_app/api_search_feature/models/person.dart';
+import 'package:rxdart_app/api_search_feature/models/thing.dart';
 
 typedef SearchTerm = String;
 

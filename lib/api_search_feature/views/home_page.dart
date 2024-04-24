@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rxdart_app/bloc/api.dart';
-import 'package:rxdart_app/bloc/search_bloc.dart';
-import 'package:rxdart_app/views/search_result_view.dart';
+import 'package:rxdart_app/api_search_feature/bloc/api.dart';
+import 'package:rxdart_app/api_search_feature/bloc/search_bloc.dart';
+import 'package:rxdart_app/api_search_feature/views/search_result_view.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

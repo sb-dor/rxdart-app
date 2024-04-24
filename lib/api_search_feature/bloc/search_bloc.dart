@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:rxdart_app/bloc/api.dart';
-import 'package:rxdart_app/bloc/search_results.dart';
+import 'package:rxdart_app/api_search_feature/bloc/api.dart';
+import 'package:rxdart_app/api_search_feature/bloc/search_results.dart';
 
 @immutable
 class SearchBloc {
@@ -25,10 +25,11 @@ class SearchBloc {
   }) {
     // it has Stream under the hood that has sink
     // because simple Streams doesn't have sink itself
+    // The RxDart' package!
     final textChanges = BehaviorSubject<String>();
 
     final Stream<SearchResultsStates?> results = textChanges
-        .distinct()
+        .distinct() // removes same data that coming in stream
         .debounceTime(const Duration(seconds: 1))
         .switchMap<SearchResultsStates?>((String searchTerm) {
           if (searchTerm.isEmpty) {
