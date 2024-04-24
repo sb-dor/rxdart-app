@@ -9,7 +9,8 @@ extension Log on Object {
 void main() {
   // testCombined();
   // testConcat();
-  testMerge();
+  // testMerge();
+  testZip();
 
   runApp(const App());
 }
@@ -73,6 +74,31 @@ void testMerge() async {
 
   // merge just merges several streams and whenever one of the streams gives value we can listen them
   final merged = Rx.merge([stream1, stream2]);
+
+  await for (final each in merged) {
+    each.log();
+  }
+}
+
+void testZip() async {
+  final stream1 = Stream.periodic(
+    const Duration(seconds: 1),
+    (i) => "Stream 1, count = $i | ",
+  ).take(7);
+
+  final stream2 = Stream.periodic(
+    const Duration(seconds: 3),
+    (i) => "Stream 2, count = $i | ",
+  ).take(7);
+
+  final stream3 = Stream.periodic(
+    const Duration(seconds: 5),
+    (i) => "Stream 3, count = $i",
+  ).take(7);
+
+  // you have to see the web site and you will understand
+  // link is in readme.md file in lib folder
+  final merged = Rx.zipList([stream1, stream2, stream3]);
 
   await for (final each in merged) {
     each.log();
