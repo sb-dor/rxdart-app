@@ -5,10 +5,16 @@ import 'package:rxdart_app/api_search_feature/bloc/search_results.dart';
 
 @immutable
 class SearchBloc {
-  final Sink<String> search;
+  // the only one write thing the ui cal control,
+  // so ui can tell us what current search is (by nane)
+  final Sink<String> search; // write-only
 
-  final Stream<SearchResultsStates?> results; // represents states
+  // in order that ui can know what kind of data was searched
+  // we have to hold that somewhere like streams
+  final Stream<SearchResultsStates?> results; // represents states  -> read-only
 
+  // after communication between ui and bloc
+  // we have to dispose the sink (bridge communicator between ui and bloc)
   // Sinks (in out context is search variable) have to be closed in the end of using
   // (как раковина, после мытья рук или посуды мы закрываем ее)
   void dispose() {
