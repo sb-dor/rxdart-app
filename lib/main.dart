@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'two_textfiled_example/view/two_textfield_example.dart';
+import 'package:rxdart_app/concat_app_example/view/concat_app_page.dart';
 
 void main() {
   // testCombined();
@@ -16,7 +16,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: TwoTextFieldExample(),
+      home: ConcatAppPage(),
       debugShowCheckedModeBanner: false,
     );
   }
