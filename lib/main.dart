@@ -11,6 +11,7 @@ import 'package:rxdart_app/firebase_app/feature/views/pages/login_view.dart';
 import 'package:rxdart_app/firebase_app/feature/views/pages/new_contact_view.dart';
 import 'package:rxdart_app/firebase_app/feature/views/pages/register_view.dart';
 import 'package:rxdart_app/firebase_options.dart';
+import 'package:rxdart_app/wish_list_app/view/getit/getit_inj.dart';
 import 'package:rxdart_app/wish_list_app/view/pages/counter_page.dart';
 
 void main() async {
@@ -22,6 +23,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  await GetItInj.inj();
 
   runApp(const App());
 }

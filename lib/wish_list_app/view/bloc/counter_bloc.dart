@@ -53,7 +53,9 @@ class CounterBloc {
     );
   }
 
-  static Stream<CounterState> _incrementStates(BehaviorSubject<CounterEvents> onDataEvent) {
+  static Stream<CounterState> _incrementStates(
+    BehaviorSubject<CounterEvents> onDataEvent,
+  ) {
     return onDataEvent.asyncMap<CounterState>((event) async {
       var data = event.counter;
       if (event is IncrementCounterEvent) {

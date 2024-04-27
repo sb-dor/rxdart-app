@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:rxdart_app/wish_list_app/view/bloc/counter_bloc.dart';
 import 'package:rxdart_app/wish_list_app/view/getit/getit_inj.dart';
-import 'package:rxdart_app/wish_list_app/view/pages/other_counter_page.dart';
+import 'package:rxdart_app/wish_list_app/view/pages/counter_page.dart';
 
-class CounterPage extends StatefulWidget {
-  const CounterPage({super.key});
+class OtherCounterPage extends StatefulWidget {
+  const OtherCounterPage({super.key});
 
   @override
-  State<CounterPage> createState() => _CounterPageState();
+  State<OtherCounterPage> createState() => _OtherCounterPageState();
 }
 
-class _CounterPageState extends State<CounterPage> {
+class _OtherCounterPageState extends State<OtherCounterPage> {
   late final CounterBloc _counterBloc;
 
   @override
   void initState() {
     super.initState();
     _counterBloc = locator<CounterBloc>();
+
   }
 
   @override
@@ -25,17 +26,6 @@ class _CounterPageState extends State<CounterPage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text("Counter page"),
-        actions: [
-          IconButton(
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const OtherCounterPage(),
-              ),
-            ),
-            icon: const Icon(Icons.forward),
-          )
-        ],
       ),
       body: StreamBuilder(
         stream: _counterBloc.counterState,
