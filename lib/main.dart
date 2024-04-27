@@ -11,6 +11,7 @@ import 'package:rxdart_app/firebase_app/feature/views/pages/login_view.dart';
 import 'package:rxdart_app/firebase_app/feature/views/pages/new_contact_view.dart';
 import 'package:rxdart_app/firebase_app/feature/views/pages/register_view.dart';
 import 'package:rxdart_app/firebase_options.dart';
+import 'package:rxdart_app/wish_list_app/view/pages/counter_page.dart';
 
 void main() async {
   // testCombined();
@@ -31,12 +32,13 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: FirebaseAppPage(),
+      home: CounterPage(),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
+// firebase main page
 class FirebaseAppPage extends StatefulWidget {
   const FirebaseAppPage({super.key});
 
