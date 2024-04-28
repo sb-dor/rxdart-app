@@ -42,6 +42,8 @@ class CounterBloc {
 
   // if I would use StreamController instead of BehaviorSubject (which both of them are almost same, but BehaviorSubject has more functions and BehaviorSubject uses broadcast by optional)
   // it would throw an error : "Bad state Stream has already been listened to."
+  // that is why BehaviorSubject can be listened multiple times
+
 
   // The BehaviorSubject is a type of StreamController that caches the latest added value or error
   final BehaviorSubject<CounterState> counterStateSubject;
@@ -73,7 +75,7 @@ class CounterBloc {
   static Stream<CounterState> _incrementStates(
     BehaviorSubject<CounterEvents> onDataEvent,
   ) {
-    final data = onDataEvent.asyncMap<CounterState>((event) async {
+    final data = onDataEvent.map<CounterState>((event) {
       var data = event.stateModel;
       if (event is IncrementCounterEvent) {
         data.counter++;
