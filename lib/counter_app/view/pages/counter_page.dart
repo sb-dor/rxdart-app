@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rxdart_app/wish_list_app/view/bloc/counter_bloc.dart';
-import 'package:rxdart_app/wish_list_app/view/getit/getit_inj.dart';
-import 'package:rxdart_app/wish_list_app/view/pages/other_counter_page.dart';
+import 'package:rxdart_app/counter_app/view/bloc/counter_bloc.dart';
+import 'package:rxdart_app/counter_app/view/pages/other_counter_page.dart';
+import 'package:rxdart_app/getit/getit_inj.dart';
 
 class CounterPage extends StatefulWidget {
   const CounterPage({super.key});

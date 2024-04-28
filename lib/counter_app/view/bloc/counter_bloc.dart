@@ -40,6 +40,10 @@ class DecrementCounterEvent extends CounterEvents {
 class CounterBloc {
   final Sink<CounterEvents> onDataEvent;
 
+  // if I would use StreamController instead of BehaviorSubject (which both of them are almost same, but BehaviorSubject has more functions and BehaviorSubject uses broadcast by optional)
+  // it would throw an error : "Bad state Stream has already been listened to."
+
+  // The BehaviorSubject is a type of StreamController that caches the latest added value or error
   final BehaviorSubject<CounterState> counterStateSubject;
 
   Stream<CounterState> get counterState => counterStateSubject.stream;

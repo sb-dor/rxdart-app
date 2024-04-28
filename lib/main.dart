@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:rxdart_app/counter_app/view/pages/counter_page.dart';
 import 'package:rxdart_app/firebase_app/feature/views/blocs/app_bloc.dart';
 import 'package:rxdart_app/firebase_app/feature/views/blocs/auth_bloc/auth_error.dart';
 import 'package:rxdart_app/firebase_app/feature/views/blocs/view_bloc/current_view.dart';
@@ -11,8 +12,9 @@ import 'package:rxdart_app/firebase_app/feature/views/pages/login_view.dart';
 import 'package:rxdart_app/firebase_app/feature/views/pages/new_contact_view.dart';
 import 'package:rxdart_app/firebase_app/feature/views/pages/register_view.dart';
 import 'package:rxdart_app/firebase_options.dart';
-import 'package:rxdart_app/wish_list_app/view/getit/getit_inj.dart';
-import 'package:rxdart_app/wish_list_app/view/pages/counter_page.dart';
+import 'package:rxdart_app/getit/getit_inj.dart';
+
+import 'wish_list_app/view/pages/wish_list_page.dart';
 
 int testAlg(String value) {
   int maxLength = 0;
@@ -58,7 +60,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: CounterPage(),
+      home: WishListPage(),
       debugShowCheckedModeBanner: false,
     );
   }
