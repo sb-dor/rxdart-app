@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rxdart_app/wish_list_app/view/bloc/counter_bloc.dart';
 import 'package:rxdart_app/wish_list_app/view/getit/getit_inj.dart';
-import 'package:rxdart_app/wish_list_app/view/pages/counter_page.dart';
 
 class OtherCounterPage extends StatefulWidget {
   const OtherCounterPage({super.key});
@@ -17,7 +16,6 @@ class _OtherCounterPageState extends State<OtherCounterPage> {
   void initState() {
     super.initState();
     _counterBloc = locator<CounterBloc>();
-
   }
 
   @override
@@ -27,7 +25,7 @@ class _OtherCounterPageState extends State<OtherCounterPage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text("Counter page"),
       ),
-      body: StreamBuilder(
+      body: StreamBuilder<CounterState>(
         stream: _counterBloc.counterState,
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
@@ -46,10 +44,10 @@ class _OtherCounterPageState extends State<OtherCounterPage> {
                   children: [
                     ElevatedButton(
                         onPressed: () => _counterBloc.onDataEvent
-                            .add(IncrementCounterEvent(snapshot.requireData.counter)),
+                            .add(IncrementCounterEvent(snapshot.requireData.stateModel)),
                         child: const Text("Increment")),
                     Text(
-                      "${snapshot.requireData.counter}",
+                      "${snapshot.requireData.stateModel.counter}",
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -58,7 +56,7 @@ class _OtherCounterPageState extends State<OtherCounterPage> {
                     ),
                     ElevatedButton(
                         onPressed: () => _counterBloc.onDataEvent
-                            .add(DecrementCounterEvent(snapshot.requireData.counter)),
+                            .add(DecrementCounterEvent(snapshot.requireData.stateModel)),
                         child: const Text("Decrement"))
                   ],
                 ),

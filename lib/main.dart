@@ -14,11 +14,34 @@ import 'package:rxdart_app/firebase_options.dart';
 import 'package:rxdart_app/wish_list_app/view/getit/getit_inj.dart';
 import 'package:rxdart_app/wish_list_app/view/pages/counter_page.dart';
 
+int testAlg(String value) {
+  int maxLength = 0;
+  Set<String> map = {};
+
+  for (int i = 0; i < value.length; i++) {
+    map.add(value[i]);
+    for (int j = i + 1; j < value.length; j++) {
+      if (map.contains(value[j])) {
+        maxLength = maxLength >= map.length ? maxLength : map.length;
+        map.clear();
+        break;
+      } else {
+        map.add(value[j]);
+      }
+    }
+  }
+  return maxLength;
+}
+
 void main() async {
   // testCombined();
   // testConcat();
   // testMerge();
   // testZip();
+  // debugPrint("${testAlg("abcbada")}");
+  // debugPrint("${testAlg("axbxcxd")}");
+  // debugPrint("${testAlg("aaaaaaa")}");
+  // debugPrint("${testAlg("abcdefg")}");
 
   WidgetsFlutterBinding.ensureInitialized();
 

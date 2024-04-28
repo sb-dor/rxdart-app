@@ -56,10 +56,10 @@ class _CounterPageState extends State<CounterPage> {
                   children: [
                     ElevatedButton(
                         onPressed: () => _counterBloc.onDataEvent
-                            .add(IncrementCounterEvent(snapshot.requireData.counter)),
+                            .add(IncrementCounterEvent(snapshot.requireData.stateModel)),
                         child: const Text("Increment")),
                     Text(
-                      "${snapshot.requireData.counter}",
+                      "${snapshot.requireData.stateModel.counter}",
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -68,7 +68,7 @@ class _CounterPageState extends State<CounterPage> {
                     ),
                     ElevatedButton(
                         onPressed: () => _counterBloc.onDataEvent
-                            .add(DecrementCounterEvent(snapshot.requireData.counter)),
+                            .add(DecrementCounterEvent(snapshot.requireData.stateModel)),
                         child: const Text("Decrement"))
                   ],
                 ),

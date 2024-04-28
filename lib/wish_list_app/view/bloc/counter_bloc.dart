@@ -1,41 +1,52 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';
 
-class CounterState {
-  int counter;
-
-  CounterState(this.counter);
+class CounterStateModel {
+  int counter = 1;
 }
 
+@immutable
+class CounterState {
+  final CounterStateModel stateModel;
+
+  const CounterState(this.stateModel);
+}
+
+@immutable
 class InitialCounterState extends CounterState {
-  InitialCounterState(super.counter);
+  const InitialCounterState(super.stateModel);
 }
 
 @immutable
 class CounterEvents {
-  final int counter;
+  final CounterStateModel stateModel;
 
-  const CounterEvents(this.counter);
+  const CounterEvents(this.stateModel);
 }
 
 @immutable
 class IncrementCounterEvent extends CounterEvents {
-  const IncrementCounterEvent(super.counter);
+  const IncrementCounterEvent(super.stateModel);
 }
 
 @immutable
 class DecrementCounterEvent extends CounterEvents {
-  const DecrementCounterEvent(super.counter);
+  const DecrementCounterEvent(super.stateModel);
 }
 
 @immutable
 class CounterBloc {
   final Sink<CounterEvents> onDataEvent;
-  final Stream<CounterState> counterState;
+
+  final BehaviorSubject<CounterState> counterStateSubject;
+
+  Stream<CounterState> get counterState => counterStateSubject.stream;
 
   const CounterBloc._({
     required this.onDataEvent,
-    required this.counterState,
+    required this.counterStateSubject,
   });
 
   void dispose() {
@@ -45,24 +56,30 @@ class CounterBloc {
   factory CounterBloc() {
     final onDataEvent = BehaviorSubject<CounterEvents>();
 
-    final incrementState = _incrementStates(onDataEvent);
+    final state = _incrementStates(onDataEvent);
+
+    final behavior = BehaviorSubject<CounterState>()..addStream(state);
 
     return CounterBloc._(
-      onDataEvent: onDataEvent,
-      counterState: incrementState,
+      onDataEvent: onDataEvent.sink,
+      counterStateSubject: behavior,
     );
   }
 
   static Stream<CounterState> _incrementStates(
     BehaviorSubject<CounterEvents> onDataEvent,
   ) {
-    return onDataEvent.asyncMap<CounterState>((event) async {
-      var data = event.counter;
+    final data = onDataEvent.asyncMap<CounterState>((event) async {
+      var data = event.stateModel;
       if (event is IncrementCounterEvent) {
-        return InitialCounterState(++data);
+        data.counter++;
+        return InitialCounterState(data);
       } else {
-        return InitialCounterState(--data);
+        data.counter--;
+        return InitialCounterState(data);
       }
-    }).startWith(InitialCounterState(0));
+    }).startWith(InitialCounterState(CounterStateModel()));
+
+    return data;
   }
 }

@@ -33,7 +33,7 @@ class ContactsBloc {
     deleteAllContacts.close();
     _deleteAllContactSubscription.cancel();
     _createContactSubscription.cancel();
-    _deleteAllContactSubscription.cancel();
+    _deleteContactSubscription.cancel();
   }
 
   const ContactsBloc._({
@@ -108,7 +108,7 @@ class ContactsBloc {
       deleteAllContacts: deleteAllContacts.sink,
       createContactSubscription: createContactSubscription,
       deleteContactSubscription: deleteContactSubscription,
-      deleteAllContactsSubscription: deleteContactSubscription,
+      deleteAllContactsSubscription: deleteAllContactsSubs,
     );
   }
 }
