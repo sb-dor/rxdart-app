@@ -14,6 +14,7 @@ import 'package:rxdart_app/firebase_app/feature/views/pages/register_view.dart';
 import 'package:rxdart_app/firebase_options.dart';
 import 'package:rxdart_app/getit/getit_inj.dart';
 
+import 'pusher/page/pusher_page.dart';
 import 'wish_list_app/view/pages/wish_list_page.dart';
 
 int testAlg(String value) {
@@ -60,7 +61,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: WishListPage(),
+      home: PusherPage(),
       debugShowCheckedModeBanner: false,
     );
   }
