@@ -45,6 +45,8 @@ dependencies:
   collection: ^1.18.0
 
   pusher_client: ^2.0.0
+  dart_pusher_channels: ^1.2.2+1 # new fresh package
+  web_socket_channel: ^2.4.5 # for test
 
 dev_dependencies:
   flutter_test:

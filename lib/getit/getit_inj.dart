@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:rxdart_app/counter_app/view/bloc/counter_bloc.dart';
+import 'package:rxdart_app/pusher/service/dart_pusher_channels_service.dart';
 import 'package:rxdart_app/pusher/service/pusher_service.dart';
 import 'package:rxdart_app/wish_list_app/view/bloc/wish_list_bloc.dart';
 
@@ -12,5 +13,7 @@ abstract class GetItInj {
     locator.registerLazySingleton<WishListBloc>(() => WishListBloc());
 
     locator.registerLazySingleton<PusherService>(() => PusherService());
+
+    locator.registerLazySingleton<DartPusherChannelsService>(() => DartPusherChannelsService());
   }
 }
